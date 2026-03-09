@@ -10,7 +10,7 @@ with open ("dictionary.txt") as file:
     word_list = file.read().split()
 
 
-def generate_password(length, use_uppercase, use_numbers, use_symbols, use_words):
+def generate_password(length, use_uppercase, use_numbers, use_symbols):
     password_chars = []
     allowed_chars = []
     allowed_chars.extend(lowercase)
@@ -22,12 +22,13 @@ def generate_password(length, use_uppercase, use_numbers, use_symbols, use_words
     if use_uppercase:
         random_lower = secrets.choice(lowercase)
         password_chars.append(random_lower)
+        length -=1
 
-    for i in range(length - 1):
+    for i in range(length):
         random_character = secrets.choice(allowed_chars)
         password_chars.append(random_character)
 
-    if use_uppercase and password_chars[0].isalpha():
+    if use_uppercase:
         password_chars[0] = password_chars[0].upper()
 
     password = "".join(password_chars)
